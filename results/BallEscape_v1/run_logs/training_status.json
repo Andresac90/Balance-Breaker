@@ -1,0 +1,38 @@
+{
+    "BallEscape": {
+        "checkpoints": [
+            {
+                "steps": 15973,
+                "file_path": "results\\BallEscape_v1\\BallEscape\\BallEscape-15973.onnx",
+                "reward": 1.301929907873273,
+                "creation_time": 1776139199.6128783,
+                "auxillary_file_paths": [
+                    "results\\BallEscape_v1\\BallEscape\\BallEscape-15973.pt"
+                ]
+            },
+            {
+                "steps": 23007,
+                "file_path": "results\\BallEscape_v1\\BallEscape\\BallEscape-23007.onnx",
+                "reward": 1.3159290727447062,
+                "creation_time": 1776139378.751982,
+                "auxillary_file_paths": [
+                    "results\\BallEscape_v1\\BallEscape\\BallEscape-23007.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 23007,
+            "file_path": "results\\BallEscape_v1\\BallEscape.onnx",
+            "reward": 1.3159290727447062,
+            "creation_time": 1776139378.751982,
+            "auxillary_file_paths": [
+                "results\\BallEscape_v1\\BallEscape\\BallEscape-23007.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
