@@ -2,15 +2,6 @@
     "BallEscape": {
         "checkpoints": [
             {
-                "steps": 15973,
-                "file_path": "results\\BallEscape_v1\\BallEscape\\BallEscape-15973.onnx",
-                "reward": 1.301929907873273,
-                "creation_time": 1776139199.6128783,
-                "auxillary_file_paths": [
-                    "results\\BallEscape_v1\\BallEscape\\BallEscape-15973.pt"
-                ]
-            },
-            {
                 "steps": 23007,
                 "file_path": "results\\BallEscape_v1\\BallEscape\\BallEscape-23007.onnx",
                 "reward": 1.3159290727447062,
@@ -18,15 +9,51 @@
                 "auxillary_file_paths": [
                     "results\\BallEscape_v1\\BallEscape\\BallEscape-23007.pt"
                 ]
+            },
+            {
+                "steps": 30767,
+                "file_path": "results\\BallEscape_v1\\BallEscape\\BallEscape-30767.onnx",
+                "reward": 1.3308051453446441,
+                "creation_time": 1776209508.6955264,
+                "auxillary_file_paths": [
+                    "results\\BallEscape_v1\\BallEscape\\BallEscape-30767.pt"
+                ]
+            },
+            {
+                "steps": 40299,
+                "file_path": "results\\BallEscape_v1\\BallEscape\\BallEscape-40299.onnx",
+                "reward": 1.3246984668806487,
+                "creation_time": 1776209634.0656831,
+                "auxillary_file_paths": [
+                    "results\\BallEscape_v1\\BallEscape\\BallEscape-40299.pt"
+                ]
+            },
+            {
+                "steps": 49992,
+                "file_path": "results\\BallEscape_v1\\BallEscape\\BallEscape-49992.onnx",
+                "reward": 1.282696275247468,
+                "creation_time": 1776210009.4775882,
+                "auxillary_file_paths": [
+                    "results\\BallEscape_v1\\BallEscape\\BallEscape-49992.pt"
+                ]
+            },
+            {
+                "steps": 56684,
+                "file_path": "results\\BallEscape_v1\\BallEscape\\BallEscape-56684.onnx",
+                "reward": 1.2613864349869062,
+                "creation_time": 1776210070.871465,
+                "auxillary_file_paths": [
+                    "results\\BallEscape_v1\\BallEscape\\BallEscape-56684.pt"
+                ]
             }
         ],
         "final_checkpoint": {
-            "steps": 23007,
+            "steps": 56684,
             "file_path": "results\\BallEscape_v1\\BallEscape.onnx",
-            "reward": 1.3159290727447062,
-            "creation_time": 1776139378.751982,
+            "reward": 1.2613864349869062,
+            "creation_time": 1776210070.871465,
             "auxillary_file_paths": [
-                "results\\BallEscape_v1\\BallEscape\\BallEscape-23007.pt"
+                "results\\BallEscape_v1\\BallEscape\\BallEscape-56684.pt"
             ]
         }
     },

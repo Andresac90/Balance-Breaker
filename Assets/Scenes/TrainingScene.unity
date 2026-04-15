@@ -723,9 +723,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b415e2d0ecf608440a2b544620b746e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TableTilter
-  maxTiltAngle: 12
-  tiltSpeed: 1.5
-  changeInterval: 1.5
+  maxTiltAngle: 20
+  tiltSpeed: 20
+  changeInterval: 1
 --- !u!1 &1687785388
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +942,7 @@ PrefabInstance:
       objectReference: {fileID: 5022602860645237092, guid: 8e89ee8f4f82203469d1d03cbd580437, type: 3}
     - target: {fileID: 6432587845647245984, guid: 6b099705fb773b242950af2e75d20e77, type: 3}
       propertyPath: m_BehaviorType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7145030742113331908, guid: 6b099705fb773b242950af2e75d20e77, type: 3}
       propertyPath: m_LocalPosition.x
@@ -983,6 +983,10 @@ PrefabInstance:
     - target: {fileID: 7145030742113331908, guid: 6b099705fb773b242950af2e75d20e77, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569936132905919070, guid: 6b099705fb773b242950af2e75d20e77, type: 3}
+      propertyPath: DecisionPeriod
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8757578762362130548, guid: 6b099705fb773b242950af2e75d20e77, type: 3}
       propertyPath: m_Name
