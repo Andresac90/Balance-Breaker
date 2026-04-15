@@ -5,6 +5,8 @@ using UnityEngine;
 /// Supports VR controllers (gyroscope-based) and keyboard fallback.
 /// Attach to the Table GameObject. Use this INSTEAD of TableTilter during gameplay.
 /// </summary>
+/// 
+
 public class TableController : MonoBehaviour
 {
     public enum InputMode { Keyboard, VR }
@@ -26,6 +28,12 @@ public class TableController : MonoBehaviour
     private float currentTiltX = 0f;
     private float currentTiltZ = 0f;
     private Vector3 basePosition;
+
+    private Quaternion leftHandBaseRot;
+    private Quaternion rightHandBaseRot;
+    private bool vrCalibrated = false;
+    private float calibrateDelay = 0.5f;
+    private float calibrateTimer = 0f;
 
     private void Start()
     {
@@ -79,16 +87,28 @@ public class TableController : MonoBehaviour
     {
         if (leftHand == null || rightHand == null) return;
 
-        // Calculate tilt from the average rotation of both hands
-        Vector3 leftEuler = leftHand.eulerAngles;
-        Vector3 rightEuler = rightHand.eulerAngles;
+        // Wait a moment then snapshot the starting hand rotation as neutral
+        if (!vrCalibrated)
+        {
+            calibrateTimer += Time.deltaTime;
+            if (calibrateTimer >= calibrateDelay)
+            {
+                leftHandBaseRot = leftHand.rotation;
+                rightHandBaseRot = rightHand.rotation;
+                vrCalibrated = true;
+            }
+            return; // keep table flat until calibrated
+        }
 
-        float avgTiltX = (NormalizeAngle(leftEuler.x) + NormalizeAngle(rightEuler.x)) / 2f;
-        float avgTiltZ = (NormalizeAngle(leftEuler.z) + NormalizeAngle(rightEuler.z)) / 2f;
+        // Use delta from baseline instead of raw rotation
+        Vector3 leftDelta = (leftHand.rotation * Quaternion.Inverse(leftHandBaseRot)).eulerAngles;
+        Vector3 rightDelta = (rightHand.rotation * Quaternion.Inverse(rightHandBaseRot)).eulerAngles;
 
-        // Also factor in height difference between hands for roll
+        float avgTiltX = (NormalizeAngle(leftDelta.x) + NormalizeAngle(rightDelta.x)) / 2f;
+        float avgTiltZ = (NormalizeAngle(leftDelta.z) + NormalizeAngle(rightDelta.z)) / 2f;
+
         float heightDiff = rightHand.position.y - leftHand.position.y;
-        float rollFromHeight = heightDiff * 30f; // Convert to approximate degrees
+        float rollFromHeight = heightDiff * 30f;
 
         currentTiltX = avgTiltX * vrTiltMultiplier;
         currentTiltZ = (avgTiltZ + rollFromHeight) * vrTiltMultiplier;

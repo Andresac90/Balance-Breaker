@@ -17,6 +17,7 @@ public class BallAgent : Agent
     private Vector3 startLocalPos;
     private Vector3 tableStartPos;
     private Quaternion tableStartRot;
+    [HideInInspector] public bool isGameplay = false;
 
     public override void Initialize()
     {
@@ -33,21 +34,17 @@ public class BallAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        // Reset ball position to a random spot on the table surface
+        if (isGameplay) return; // don't reset table or reposition during gameplay
+
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-
-        // Random spawn within table bounds (table scale X=2, Z=1.5 -> half extents ~0.8, ~0.55)
         float randX = Random.Range(-0.7f, 0.7f);
         float randZ = Random.Range(-0.5f, 0.5f);
         Vector3 localSpawn = new Vector3(randX, startLocalPos.y, randZ);
-
         if (table != null)
         {
-            // Reset table orientation for training
             table.position = tableStartPos;
             table.rotation = tableStartRot;
-
             transform.position = table.TransformPoint(localSpawn);
             transform.rotation = Quaternion.identity;
         }
@@ -125,7 +122,7 @@ public class BallAgent : Agent
     {
         if (other.CompareTag("FallZone"))
         {
-            // Ball escaped! Big positive reward, end episode.
+            if (isGameplay) return; 
             AddReward(1.0f);
             EndEpisode();
         }

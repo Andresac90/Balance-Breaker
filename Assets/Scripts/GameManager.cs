@@ -97,28 +97,51 @@ public class GameManager : MonoBehaviour
     {
         if (ballPrefab == null || table == null) return;
 
-        // Random position on table surface
-        float randX = Random.Range(-0.7f, 0.7f);
-        float randZ = Random.Range(-0.5f, 0.5f);
-        Vector3 spawnPos = table.TransformPoint(new Vector3(randX, 0.25f, randZ));
+        // Get table top in world space directly from renderer
+        Renderer tableRenderer = table.GetComponent<Renderer>();
+
+        // Spawn at table center first, then offset in world space X/Z only
+        Vector3 tableCenter = tableRenderer != null
+            ? tableRenderer.bounds.center
+            : table.position;
+
+        float tableTopY = tableRenderer != null
+            ? tableRenderer.bounds.center.y + tableRenderer.bounds.extents.y + 0.15f
+            : table.position.y + 0.25f;
+
+        // Use small random offset in WORLD space X/Z from table center
+        float randX = Random.Range(-0.2f, 0.2f);
+        float randZ = Random.Range(-0.15f, 0.15f);
+
+        Vector3 spawnPos = new Vector3(tableCenter.x + randX, tableTopY, tableCenter.z + randZ);
 
         GameObject ball = Instantiate(ballPrefab, spawnPos, Quaternion.identity);
         ball.SetActive(true);
 
-        // Wire up the agent's table reference
         BallAgent agent = ball.GetComponent<BallAgent>();
         if (agent != null)
         {
             agent.table = table;
+            agent.isGameplay = true; 
         }
 
-        // Listen for when this ball falls
-        BallFallDetector detector = ball.GetComponent<BallFallDetector>();
-        if (detector == null)
-            detector = ball.AddComponent<BallFallDetector>();
-        detector.onFell = () => OnBallFellOff(ball);
+        // Small delay before wiring detector so physics can settle
+        StartCoroutine(WireDetectorDelayed(ball));
 
         activeBalls.Add(ball);
+    }
+
+    private IEnumerator WireDetectorDelayed(GameObject ball)
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        if (ball == null) yield break; 
+
+        BallFallDetector detector = ball.GetComponent<BallFallDetector>();
+        if (detector == null) detector = ball.AddComponent<BallFallDetector>();
+
+        GameObject capturedBall = ball;
+        detector.onFell = () => OnBallFellOff(capturedBall);
     }
 
     private void OnBallFellOff(GameObject ball)

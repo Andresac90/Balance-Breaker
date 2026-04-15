@@ -13,10 +13,10 @@ public class GameStarter : MonoBehaviour
 
     private void Update()
     {
-        if (!started && Input.GetKeyDown(KeyCode.Space))
-        {
-            StartGame();
-        }
+        //if (!started && Input.GetKeyDown(KeyCode.Space))
+        //{
+        StartGame();
+        //}
     }
 
     public void StartGame()
