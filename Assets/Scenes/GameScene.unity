@@ -390,7 +390,7 @@ MonoBehaviour:
   waveDuration: 20
   startingBalls: 1
   maxBalls: 5
-  maxFallsAllowed: 3
+  maxFallsAllowed: 15
   OnWaveStart:
     m_PersistentCalls:
       m_Calls:

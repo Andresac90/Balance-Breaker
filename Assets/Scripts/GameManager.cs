@@ -157,7 +157,21 @@ public class GameManager : MonoBehaviour
             gameActive = false;
             ClearBalls();
             OnGameOver?.Invoke(currentWave, totalTimeSurvived);
+            return;
         }
+
+        // Respawn a replacement ball after a short delay
+        if (gameActive)
+        {
+            StartCoroutine(RespawnBallDelayed());
+        }
+    }
+
+    private IEnumerator RespawnBallDelayed()
+    {
+        yield return new WaitForSeconds(1f);
+        if (gameActive)
+            SpawnBall();
     }
 
     private void ClearBalls()
